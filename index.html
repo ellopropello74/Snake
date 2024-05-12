@@ -107,12 +107,6 @@
                 const headY = snake[0].y;
 
                 // Determine swipe direction based on touch start and snake head position
-                if (Math.abs(cellX - headX) > Math.abs(cellY - headY)) {
-                    if (cellX < headX) direction = 'RIGHT';
-                    else if (cellX > headX) direction = 'LEFT';
-                } else {
-                    if (cellY < headY) direction = 'UP';
-                    else if (cellY > headY) direction = 'DOWN';
                 }
             }
         }
