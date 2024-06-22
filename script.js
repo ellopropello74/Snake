@@ -5,10 +5,11 @@ const restartButton = document.getElementById("restartButton");
 const scoreDisplay = document.getElementById("score");
 const highscoreDisplay = document.getElementById("highscore");
 
-const box = 20;
-const rows = canvas.height / box;
-const columns = canvas.width / box;
-const speed = 175;
+let box;
+let rows;
+let columns;
+let speed = 175;
+const margin = 100; // Abstand von einem Zentimeter in Pixel (10px)
 
 let snake;
 let food;
@@ -63,6 +64,7 @@ function handleTouchMove(evt) {
 }
 
 function startGame() {
+  resizeCanvas();
   startButton.style.display = "none";
   restartButton.style.display = "none";
   highscoreDisplay.textContent = highscore;
@@ -75,7 +77,22 @@ function restartGame() {
   startGame();
 }
 
+function resizeCanvas() {
+  const availableWidth = window.innerWidth - 2 * margin;
+  const availableHeight = window.innerHeight - 2 * margin;
+
+  canvas.width = availableWidth;
+  canvas.height = availableHeight;
+
+  box = Math.floor(Math.min(availableWidth, availableHeight) / 20);
+  rows = Math.floor(availableHeight / box);
+  columns = Math.floor(availableWidth / box);
+}
+
+window.addEventListener("resize", resizeCanvas);
+
 function resetGame() {
+  resizeCanvas();
   snake = [];
   snake[0] = {
     x: Math.floor(columns / 2) * box,
@@ -162,3 +179,5 @@ function collision(head, array) {
   }
   return false;
 }
+
+resizeCanvas();
